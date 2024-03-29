@@ -17,7 +17,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={ () => <Home />} />
             <Route path="/controllers" component={() => <Controllers />} />
-            <Route path="/controller/:id" component={() => <ControllersScreen  />} />
+            <Route path="/controller/:id" component={(props: any) => <ControllersScreen props={props} />} />
           </Switch>
         </div>
       </Container>
