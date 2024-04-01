@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Row, Table } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
-import { useParams } from "react-router-dom";
 import IHeading from "../interfaces/IHeading";
 import IHeadingResponse from "../interfaces/IHeadingResponse";
 import ILine from "../interfaces/ILine";
