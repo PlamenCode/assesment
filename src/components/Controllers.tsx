@@ -41,7 +41,7 @@ export default function Controllers() {
                         <th>Description</th>
                         <th>Saturation</th>
                         <th>Trac phases</th>
-                        <th></th>
+                        {/* <th></th> removed for visual purpose*/} 
                     </tr>
                 </thead>
                 <tbody>
