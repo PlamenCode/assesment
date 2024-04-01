@@ -162,7 +162,6 @@ export default function ControllerForm(props: FormProps) {
                                     value={ tracCycles } />
                             </Form.Group>
                         </Col>
-
                     </Row>
                 </ModalBody>
                 <Modal.Footer>

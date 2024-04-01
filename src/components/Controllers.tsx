@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import IController from '../interfaces/IController';
 import TracApi from '../services/trac-api';
 import ControllerForm from './forms/ControllerForm';
-import IPageSate from '../interfaces/IPageState';
 
 const Api = TracApi();
 
@@ -50,9 +49,12 @@ export default function Controllers() {
                             <td>{val.number} ({val.altNumber})</td>
                             <td>{val.description}</td>
                             <td>{val.saturation &&
-                                <>Min: <strong>{val.saturation.min}</strong>
+                                <>
+                                    Min: <strong>{val.saturation.min}</strong>
                                     &nbsp;Middle: <strong>{val.saturation.middle} </strong>
-                                    &nbsp;Max: <strong>{val.saturation.max}</strong></>}</td>
+                                    &nbsp;Max: <strong>{val.saturation.max}</strong>
+                                </>}
+                            </td>
                             <td>{val.tracCycles}</td>
                             <td>
                                 <Button variant="link" onClick={() => {
@@ -70,8 +72,7 @@ export default function Controllers() {
 
                             </td>
                         </tr>
-                    )
-                    )}
+                    ))}
                 </tbody>
             </Table >)
     };
@@ -80,14 +81,11 @@ export default function Controllers() {
         <>
             <br />
             <Row>
-                <Col >
-                    <h2>Controllers</h2>
-                </Col>
+                <Col><h2>Controllers</h2></Col>
                 <Col >
                     <Button className="float-right" onClick={() => {
-                        setInitialState({ ...initialState, showModal: true })
-                    }}>New
-                    </Button>
+                        setInitialState({ ...initialState, showModal: true })}}
+                    >New</Button>
                 </Col>
             </Row>
             <br />

@@ -4,7 +4,7 @@ const cfg = () => {
     tzOffset: new Date().getTimezoneOffset() / 60,
   };
   const dev = {
-    baseUrl: "your api url here - presumably localhost",
+    baseUrl: "http://172.17.20.6:89",
   };
   const prod = {
     baseUrl: "-",

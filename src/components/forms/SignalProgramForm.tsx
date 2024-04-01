@@ -75,11 +75,11 @@ export default function SignalProgramForm(props: FormProps) {
                         </Form.Control.Feedback>
                     </Form.Group>
                     {/* <Form.Group controlId='weight'>
-          <Form.Label>Weight</Form.Label>
-          <Form.Control type='number' min='0'
-            onChange={e => this.setState({ weight: +e.target.value })}
-            value={this.state.weight} />
-        </Form.Group> */}
+                            <Form.Label>Weight</Form.Label>
+                            <Form.Control type='number' min='0'
+                                onChange={e => this.setState({ weight: +e.target.value })}
+                                value={this.state.weight} />
+                        </Form.Group> */}
                     <Form.Group controlId='greenLength'>
                         <Form.Label>Green Length - seconds</Form.Label>
                         <Form.Control type='number' min='8' max='120' defaultValue='60' step='1'
