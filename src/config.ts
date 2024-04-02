@@ -4,7 +4,7 @@ const cfg = () => {
     tzOffset: new Date().getTimezoneOffset() / 60,
   };
   const dev = {
-    baseUrl: "http://172.17.20.6:89",
+    baseUrl: "http://172.17.20.6:89/trac",
   };
   const prod = {
     baseUrl: "-",

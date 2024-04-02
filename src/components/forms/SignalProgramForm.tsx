@@ -17,7 +17,7 @@ type FormProps = {
     heading?: number,
     existingSps?: number[],
     save: () => void
-}
+};
 
 export default function SignalProgramForm(props: FormProps) {
     const [state, setState] = useState<FormState>({

@@ -7,14 +7,13 @@ import ControllerForm from './forms/ControllerForm';
 
 const Api = TracApi();
 
+type PageState = {
+    controllers: IController[],
+    existing?: IController,
+    showModal: boolean
+};
 
 export default function Controllers() {
-    type PageState = {
-        controllers: IController[],
-        existing?: IController,
-        showModal: boolean
-    };
-
     const [initialState, setInitialState] = useState<PageState>({
         controllers: [],
         showModal: false
@@ -23,8 +22,12 @@ export default function Controllers() {
     useEffect(() => {
         const setState = async () => {
             const controllers = await Api.controllerList();
+            // Test Values 
+            // const controllers = [
+            //     {number: 1, altNumber: 2, description: 'Some Text', saturation: {min: 10, middle: 15, max: 20}, tracCycles: 5},
+            //     {number: 3, altNumber: 4, description: 'Some Text 2', saturation: {min: 5, middle: 12, max: 18}, tracCycles: 4}];
             setInitialState({ ...initialState, controllers });
-        };
+        };        
         setState();
         return () => { };
     }, []);
@@ -63,13 +66,11 @@ export default function Controllers() {
                                         showModal: true,
                                         existing: val
                                     })
-                                }}>
-                                    Edit
-                                </Button>
+                                }}>Edit</Button>
+
                                 <Link to={`controller/${val.number}`}>
                                     <Button variant='link'>View</Button>
                                 </Link>
-
                             </td>
                         </tr>
                     ))}
@@ -93,10 +94,8 @@ export default function Controllers() {
             {initialState.showModal && <ControllerForm
                 data={initialState.existing}
                 save={saveAndCloseModal}
-                existingControllers={initialState.controllers.map(val => val.number)} />}
+                existingControllers={initialState.controllers.map(val => val.number)} />
+            }
         </>
     )
-
-
-
 }
