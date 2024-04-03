@@ -62,7 +62,7 @@ export default function Controllers() {
                             <td>
                                 <Button variant="link" onClick={() => {
                                     setInitialState({
-                                        controllers: [],
+                                        ...initialState,
                                         showModal: true,
                                         existing: val
                                     })
