@@ -12,18 +12,18 @@ type PageState = {
 };
 
 export default function Controllers() {
-    const [initialState, setInitialState] = useState<PageState>({
-        controllers: []
-    });
+    const [initialState, setInitialState] = useState<PageState>({ controllers: [] });
     const [showModal, setShowModal] = useState<Boolean>(false);
     const [existing, setExisting] = useState<IController>();
 
     useEffect(() => {
-        const setState = async () => {
+        let setState = async () => {
             const controllers = await Api.controllerList();
             setInitialState({ controllers });
-        };        
-        setState();
+        };  
+        setState();  
+
+        return () => { };
     }, [ initialState ]);
 
     const saveAndCloseModal = () => {

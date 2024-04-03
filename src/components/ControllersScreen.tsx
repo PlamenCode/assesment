@@ -9,6 +9,7 @@ import TracApi from "../services/trac-api";
 import HeadingForm from "./forms/HeadingForm";
 import LineForm from "./forms/LineForm";
 import SignalProgramForm from "./forms/SignalProgramForm";
+import { useParams } from "react-router-dom";
 
 const Api = TracApi();
 
@@ -25,26 +26,31 @@ type ScreenState = {
 	currentHeading?: IHeading;
 };
 
-export default function ControllersScreen({ params }: any) {
+
+export default function ControllersScreen() {
 	const [state, setState] = useState<ScreenState>({
 		showSpModal: false,
 		showLineModal: false,
 		showHeadingModal: false,
 	});
-	const [id, setId] = useState(null);
+	const [id, setId] = useState<number>();
+	const params = useParams<{id: string}>();
 
 	useEffect(() => {
-		setId(params["id"]);
-		let headings: any;
-
-		const setHeading = async () => {
-			headings = await Api.getHeadingsForController(id!);
-		};
-		setHeading();
-
-		setState({ ...state, headings });
-
-		return () => { };
+		let isMounted = true;
+		if(isMounted){
+			let headings: any;
+			setId(Number(params.id));
+			
+			const setHeading = async () => {
+				console.log(id);
+				headings = await Api.getHeadingsForController(id!);
+			};
+			setHeading();
+			
+			setState({ ...state, headings });	
+		}
+		return () => { isMounted = false };
 	}, []);
 
 	const saveAndCloseSpModal = () => {
