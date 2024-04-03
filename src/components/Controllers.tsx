@@ -17,18 +17,17 @@ export default function Controllers() {
     const [existing, setExisting] = useState<IController>();
 
     useEffect(() => {
-        let setState = async () => {
+        const fetchData = async () => {
             const controllers = await Api.controllerList();
             setInitialState({ controllers });
         };  
-        setState();  
-
-        return () => { };
-    }, [ initialState ]);
+        fetchData();  
+    }, [])
 
     const saveAndCloseModal = () => {
         setShowModal(false);
         setExisting(undefined);
+        window.location.reload();
     }
 
     const renderTable = () => {
@@ -88,7 +87,7 @@ export default function Controllers() {
             {showModal && <ControllerForm
                 data={existing}
                 save={saveAndCloseModal}
-                existingControllers={initialState.controllers.map(val => val.number)} />
+                existingControllers={initialState.controllers.map(val => val.number)}/>
             }
         </>
     )

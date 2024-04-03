@@ -166,7 +166,7 @@ export default function ControllerForm({ data, save, existingControllers }: Form
                 </ModalBody>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => save()}>Cancel</Button>
-                    <Button type="submit">{!data ? 'Add' : 'Edit'}</Button>
+                    <Button type="submit" >{!data ? 'Add' : 'Edit'}</Button>
                 </Modal.Footer>
             </Form>
         </Modal>
