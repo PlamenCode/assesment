@@ -37,20 +37,18 @@ export default function ControllersScreen() {
 	const params = useParams<{id: string}>();
 
 	useEffect(() => {
-		let isMounted = true;
-		if(isMounted){
-			let headings: any;
-			setId(Number(params.id));
+		let headings: any;
+		setId(Number(params.id));
 			
-			const setHeading = async () => {
-				console.log(id);
-				headings = await Api.getHeadingsForController(id!);
-			};
-			setHeading();
-			
-			setState({ ...state, headings });	
-		}
-		return () => { isMounted = false };
+		const setHeading = async () => {
+			headings = await Api.getHeadingsForController(Number(params.id));	
+			return headings;
+		};
+		setHeading()
+			.then(res => res)
+			.then(data => {
+				setState({ ...state, headings: data });
+			});		
 	}, []);
 
 	const saveAndCloseSpModal = () => {
@@ -240,6 +238,7 @@ export default function ControllersScreen() {
 					</Accordion.Collapse>
 				</Card>
 			))}
+			{ !state.headings || state.headings.length < 1 && <h1>No headings yet.</h1> }
 		</Accordion>
 	);
 
