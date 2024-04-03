@@ -9,30 +9,27 @@ const Api = TracApi();
 
 type PageState = {
     controllers: IController[],
-    existing?: IController,
-    showModal: boolean
 };
 
 export default function Controllers() {
     const [initialState, setInitialState] = useState<PageState>({
-        controllers: [],
-        showModal: false
+        controllers: []
     });
+    const [showModal, setShowModal] = useState<Boolean>(false);
+    const [existing, setExisting] = useState<IController>();
 
     useEffect(() => {
         const setState = async () => {
             const controllers = await Api.controllerList();
-            // Test Values 
-            // const controllers = [
-            //     {number: 1, altNumber: 2, description: 'Some Text', saturation: {min: 10, middle: 15, max: 20}, tracCycles: 5},
-            //     {number: 3, altNumber: 4, description: 'Some Text 2', saturation: {min: 5, middle: 12, max: 18}, tracCycles: 4}];
-            setInitialState({ ...initialState, controllers });
+            setInitialState({ controllers });
         };        
         setState();
-        return () => { };
-    }, []);
+    }, [ initialState ]);
 
-    const saveAndCloseModal = () => setInitialState({ ...initialState, showModal: false, existing: undefined })
+    const saveAndCloseModal = () => {
+        setShowModal(false);
+        setExisting(undefined);
+    }
 
     const renderTable = () => {
         return (
@@ -61,11 +58,8 @@ export default function Controllers() {
                             <td>{val.tracCycles}</td>
                             <td>
                                 <Button variant="link" onClick={() => {
-                                    setInitialState({
-                                        ...initialState,
-                                        showModal: true,
-                                        existing: val
-                                    })
+                                    setExisting(val);
+                                    setShowModal(true);
                                 }}>Edit</Button>
 
                                 <Link to={`controller/${val.number}`}>
@@ -85,14 +79,14 @@ export default function Controllers() {
                 <Col><h2>Controllers</h2></Col>
                 <Col >
                     <Button className="float-right" onClick={() => {
-                        setInitialState({ ...initialState, showModal: true })}}
+                        setShowModal(true)}}
                     >New</Button>
                 </Col>
             </Row>
             <br />
             {renderTable()}
-            {initialState.showModal && <ControllerForm
-                data={initialState.existing}
+            {showModal && <ControllerForm
+                data={existing}
                 save={saveAndCloseModal}
                 existingControllers={initialState.controllers.map(val => val.number)} />
             }

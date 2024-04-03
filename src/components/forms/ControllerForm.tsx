@@ -34,19 +34,19 @@ type FormProps = {
 }
 
 
-export default function ControllerForm(props: FormProps) {
+export default function ControllerForm({ data, save, existingControllers }: FormProps) {
     const [state, setState] = useState<FormState>(initState);
     const { saturation, tracCycles } = state;
 
     useEffect(() => {
         const setingState = async () => {
-            if (props.data) {
+            if (data) {
                 setState({
                     ...state,
-                    number: props.data.number.toString(),
-                    altNumber: props.data.altNumber.toString(),
-                    description: props.data.description,
-                    saturation: props.data.saturation
+                    number: data.number.toString(),
+                    altNumber: data.altNumber.toString(),
+                    description: data.description,
+                    saturation: data.saturation
                 })
             }
         };
@@ -57,7 +57,7 @@ export default function ControllerForm(props: FormProps) {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         const { min, middle, max } = e.target.elements;
-        if (!props.data && state.number && props.existingControllers.indexOf(+state.number) >= 0) {
+        if (!data && state.number && existingControllers.indexOf(+state.number) >= 0) {
             setState({ ...state, controllerError: 'Controller already exists' })
             return;
         } else if (!state.number) {
@@ -74,31 +74,31 @@ export default function ControllerForm(props: FormProps) {
             saturation: { min: min.valueAsNumber, middle: middle.valueAsNumber, max: max.valueAsNumber },
             tracCycles: state.tracCycles
         };
-        if (props.data) {
+        if (data) {
             await Api.editController(model)
 
         } else {
             await Api.addController(model)
         }
 
-        props.save()
+        save();
     }
 
     return (
         <Modal
             show={true}
-            onHide={() => props.save()}
+            onHide={() => save()}
             backdrop="static"
             keyboard={true}>
             <Modal.Header>
-                <Modal.Title>{props.data ? 'Edit' : 'Add new'} controller</Modal.Title>
+                <Modal.Title>{data ? 'Edit' : 'Add new'} controller</Modal.Title>
             </Modal.Header>
             <Form onSubmit={handleSubmit}>
                 <ModalBody>
                     <Row>
                         <Form.Group as={Col} controlId='controller'>
                             <Form.Label>Intersection</Form.Label>
-                            <Form.Control type='number' step='1' disabled={!!props.data}
+                            <Form.Control type='number' step='1' disabled={!!data}
                                 onChange={e => setState({ ...state, number: e.target.value })}
                                 isInvalid={!!state.controllerError}
                                 value={state.number} />
@@ -165,8 +165,8 @@ export default function ControllerForm(props: FormProps) {
                     </Row>
                 </ModalBody>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => props.save()}>Cancel</Button>
-                    <Button type="submit">{!props.data ? 'Add' : 'Edit'}</Button>
+                    <Button variant="secondary" onClick={() => save()}>Cancel</Button>
+                    <Button type="submit">{!data ? 'Add' : 'Edit'}</Button>
                 </Modal.Footer>
             </Form>
         </Modal>
