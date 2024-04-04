@@ -20,7 +20,6 @@ const put = async (route: string, body: any) => {
 };
 
 export default function TracApi() {
-
     const controllerList = async () => await get('controllers');
     const addController = async (model: IController) => await post('controllers', model)
     const editController = async (model: IController) => await put('controllers', model)
