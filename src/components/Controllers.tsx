@@ -22,13 +22,13 @@ export default function Controllers() {
             setInitialState({ controllers });
         };  
         fetchData();  
-    }, [])
+    }, []);
 
     const saveAndCloseModal = () => {
         setShowModal(false);
         setExisting(undefined);
         window.location.reload();
-    }
+    };
 
     const renderTable = () => {
         return (

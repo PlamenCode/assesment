@@ -253,21 +253,10 @@ export default function ControllersScreen() {
 					<h2>Controller {id}</h2>
 				</Col>
 				<Col>
-					{/* buttons for forms */}
 					<Button variant="success" onClick={() => {
 						setState({ ...state, showHeadingModal: true });
 					}}
 					>New Heading</Button>
-
-					<Button variant="success" onClick={() => {
-						setState({ ...state, showLineModal: true });
-					}}
-					>New Line</Button>
-
-					<Button variant="success" onClick={() => {
-						setState({ ...state, showSpModal: true });
-					}}
-					>New Signal</Button>
 				</Col>
 			</Row>
 			{renderHeadings()}
@@ -288,6 +277,8 @@ export default function ControllersScreen() {
 					save={saveAndCloseSpModal}
 			/> */}
 			{/* internal serverr error on submit the SignalProgramForm */}
+
+
 			{state.showLineModal && (
 				<LineForm
 					data={state.currentLine}
@@ -305,6 +296,8 @@ export default function ControllersScreen() {
 					existingLines={state.linesPerCurrentHeading}
 			/>  */}
 			{/* internal serverr error on submit the LineForm  */}
+
+
 			{state.showHeadingModal && (
 				<HeadingForm
 					data={state.currentHeading}
