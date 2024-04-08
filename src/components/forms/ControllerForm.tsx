@@ -76,7 +76,7 @@ export default function ControllerForm({ data, save, existingControllers }: Form
         };
         if (data) {
             await Api.editController(model)
-
+            //when editing a controller CORS ERROR displays
         } else {
             await Api.addController(model)
         }

@@ -48,8 +48,8 @@ export default function HeadingForm(props: FormProps) {
         } else {
             await Api.addHeading(model)
         }
-
         props.hide();
+        window.location.reload();
     };
 
     return (
@@ -67,7 +67,7 @@ export default function HeadingForm(props: FormProps) {
                     <Form.Label>Heading</Form.Label>
                     <Form.Control type='number' disabled={!!data} min='1'
                         onChange={e => setState({ ...state, number: +e.target.value })}
-                        value={state.number}
+                        defaultValue={state.number}
                         isInvalid={!!state.error} />
                     <Form.Control.Feedback type='invalid'>
                         {state.error}
@@ -77,13 +77,13 @@ export default function HeadingForm(props: FormProps) {
                     <Form.Label>Weight</Form.Label>
                     <Form.Control type='number' step='1'
                         onChange={e => setState({ ...state, weight: +e.target.value })}
-                        value={state.weight} />
+                        defaultValue={state.weight} />
                 </Form.Group>
                 <Form.Group controlId='description'>
                     <Form.Label>Description</Form.Label>
                     <Form.Control type='input'
                         onChange={e => setState({ ...state, description: e.target.value })}
-                        value={state.description} />
+                        defaultValue={state.description} />
                 </Form.Group>
             </Modal.Body>
             <Modal.Footer>
