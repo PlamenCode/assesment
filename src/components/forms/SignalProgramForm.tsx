@@ -68,7 +68,7 @@ export default function SignalProgramForm(props: FormProps) {
                         <Form.Label>Signal program</Form.Label>
                         <Form.Control type='number' disabled={!!props.data} min='1' max='8'
                             onChange={e => setState({ number: +e.target.value })}
-                            value={state.number}
+                            defaultValue={state.number}
                             isInvalid={!!state.error} />
                         <Form.Control.Feedback type='invalid'>
                             {state.error}
@@ -82,9 +82,9 @@ export default function SignalProgramForm(props: FormProps) {
                         </Form.Group> */}
                     <Form.Group controlId='greenLength'>
                         <Form.Label>Green Length - seconds</Form.Label>
-                        <Form.Control type='number' min='8' max='120' defaultValue='60' step='1'
+                        <Form.Control type='number' min='8' max='120' step='1'
                             onChange={e => setState({ ...state, greenLength: +e.target.value })}
-                            value={state.greenLength} />
+                            value={state.greenLength || '60'} />
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>

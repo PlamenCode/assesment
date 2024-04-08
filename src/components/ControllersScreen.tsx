@@ -59,6 +59,7 @@ export default function ControllersScreen() {
 			currentSp: undefined,
 			spsPerCurrentHeading: undefined,
 		});
+		window.location.reload();
 	};
 
 	const saveAndCloseLineModal = () => {
@@ -266,6 +267,14 @@ export default function ControllersScreen() {
 					save={saveAndCloseSpModal}
 				/>
 			)}
+			{/* <SignalProgramForm
+					existingSps={state.spsPerCurrentHeading}
+					controller={id!}
+					data={state.currentSp}
+					heading={state.selectedHeading}
+					save={saveAndCloseSpModal}
+			/> */}
+			{/* internal serverr error on submit the SignalProgramForm */}
 			{state.showLineModal && (
 				<LineForm
 					data={state.currentLine}
@@ -275,6 +284,14 @@ export default function ControllersScreen() {
 					existingLines={state.linesPerCurrentHeading}
 				/>
 			)}
+			{/* <LineForm
+					data={state.currentLine}
+					heading={state.selectedHeading}
+					controller={id!}
+					save={saveAndCloseLineModal}
+					existingLines={state.linesPerCurrentHeading}
+			/> */} 
+			{/* internal serverr error on submit the LineForm  */}
 			{state.showHeadingModal && (
 				<HeadingForm
 					data={state.currentHeading}

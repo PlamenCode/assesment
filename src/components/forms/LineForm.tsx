@@ -76,7 +76,7 @@ export default function LineForm( props: FormProps) {
                     <Form.Label>Line</Form.Label>
                     <Form.Control type='number' disabled={!!props.data} min='1'
                         onChange={e => setState({ ...state, number: +e.target.value })}
-                        value={state.number}
+                        defaultValue={state.number}
                         isInvalid={!!state.error} />
                     <Form.Control.Feedback type='invalid'>
                         {state.error}
@@ -86,7 +86,7 @@ export default function LineForm( props: FormProps) {
                     <Form.Label>Saturation</Form.Label>
                     <Form.Control type='number' step='0.1'
                         onChange={e => setState({ ...state, saturation: +e.target.value })}
-                        value={state.saturation} />
+                        defaultValue={state.saturation} />
                 </Form.Group>
             </Modal.Body>
             <Modal.Footer>
