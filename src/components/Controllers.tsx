@@ -24,7 +24,10 @@ export default function Controllers() {
             setInitialState({ controllers });
             setHasLoaded(true);
         };
-        fetchData();
+        const timer = setTimeout(() => {
+            fetchData();
+          }, 1000);
+          return () => clearTimeout(timer);
     }, []);
 
     const saveAndCloseModal = () => {
@@ -79,7 +82,7 @@ export default function Controllers() {
                     height={100}
                     width={100}
                     radius={5}
-                    color="##0d6efd"
+                    color="#0d6efd"
                     ariaLabel="ball-triangle-loading"
                     wrapperStyle={{}}
                     wrapperClass=""
