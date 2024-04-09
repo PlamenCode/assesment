@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import IController from '../interfaces/IController';
 import TracApi from '../services/trac-api';
 import ControllerForm from './forms/ControllerForm';
+import { BallTriangle } from 'react-loader-spinner'
 
 const Api = TracApi();
 
@@ -15,13 +16,15 @@ export default function Controllers() {
     const [initialState, setInitialState] = useState<PageState>({ controllers: [] });
     const [showModal, setShowModal] = useState<Boolean>(false);
     const [existing, setExisting] = useState<IController>();
+    const [hasLoaded, setHasLoaded] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
             const controllers = await Api.controllerList();
             setInitialState({ controllers });
-        };  
-        fetchData();  
+            setHasLoaded(true);
+        };
+        fetchData();
     }, []);
 
     const saveAndCloseModal = () => {
@@ -31,7 +34,7 @@ export default function Controllers() {
     };
 
     const renderTable = () => {
-        return (
+        if (hasLoaded) return (
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -39,7 +42,7 @@ export default function Controllers() {
                         <th>Description</th>
                         <th>Saturation</th>
                         <th>Trac phases</th>
-                        {/* <th></th> removed for visual purpose*/} 
+                        {/* <th></th> removed for visual purpose*/}
                     </tr>
                 </thead>
                 <tbody>
@@ -68,7 +71,22 @@ export default function Controllers() {
                         </tr>
                     ))}
                 </tbody>
-            </Table >)
+            </Table >
+        )
+        if (!hasLoaded) return (
+            <div className="spinner">
+                <BallTriangle
+                    height={100}
+                    width={100}
+                    radius={5}
+                    color="##0d6efd"
+                    ariaLabel="ball-triangle-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                />
+            </div>
+        )
     };
 
     return (
@@ -78,7 +96,8 @@ export default function Controllers() {
                 <Col><h2>Controllers</h2></Col>
                 <Col >
                     <Button className="float-right" onClick={() => {
-                        setShowModal(true)}}
+                        setShowModal(true)
+                    }}
                     >New</Button>
                 </Col>
             </Row>
@@ -87,7 +106,7 @@ export default function Controllers() {
             {showModal && <ControllerForm
                 data={existing}
                 save={saveAndCloseModal}
-                existingControllers={initialState.controllers.map(val => val.number)}/>
+                existingControllers={initialState.controllers.map(val => val.number)} />
             }
         </>
     )

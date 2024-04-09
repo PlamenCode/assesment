@@ -24,3 +24,9 @@ code {
   width: 150px !important;
   height: 150px !important;
 }
+.spinner{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
